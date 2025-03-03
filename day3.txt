@@ -1,0 +1,16 @@
+#include <vector>
+#include <algorithm> 
+
+using namespace std;
+
+vector<vector<int>> transformImage(vector<vector<int>>& image) {
+    for (auto& row : image) {
+        for (int i = 0; i < row.size(); ++i) {
+            row[i] = 1 - row[i]; 
+        }
+    }
+    for (auto& row : image) {
+        reverse(row.begin(), row.end());
+    }
+    return image; 
+}
