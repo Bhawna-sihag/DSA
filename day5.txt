@@ -1,0 +1,55 @@
+//QUESTION 1 :- MOST VISITED SECTOR IN A CIRCULAR TRACK
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> mostVisited(int n, vector<int>& rounds) {
+    vector<int> visitCount(n, 0);
+    
+    int m = rounds.size();
+    for (int i = 0; i < m - 1; ++i) {
+        int start = rounds[i] - 1;  
+        int end = rounds[i + 1] - 1; 
+        
+        if (start <= end) {
+            for (int j = start; j <= end; ++j) {
+                visitCount[j]++;
+            }
+        } else {
+            for (int j = start; j < n; ++j) {
+                visitCount[j]++;
+            }
+            for (int j = 0; j <= end; ++j) {
+                visitCount[j]++;
+            }
+        }
+    }
+
+    int maxVisitCount = *max_element(visitCount.begin(), visitCount.end());
+
+    vector<int> result;
+    for (int i = 0; i < n; ++i) {
+        if (visitCount[i] == maxVisitCount){
+        result.push_back(i + 1);  }
+    }
+    return result;
+}
+
+int main() {
+    int n = 5;
+    vector<int> rounds = {1, 3, 2, 4, 3, 5};
+    
+    vector<int> result = mostVisited(n, rounds);
+    
+    for (int sector : result) {
+        cout << sector << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}
+
+// APPROACH :- FOR EACH ROUND WE GO THROUGH SECTOR FROM START TO END COUNTING HOW MANY TIME EACH SECTOR IS VISITED IF WE ROUND WRAP AROUND THE TRACK WE COUNT SECTOR END BACK TO THE START AFTER ALL ROUND PROCESSED 
+WE FIND THE SECTORS WE VISITED THE MOST AND THAT COUNT IS THE VALUE RETURNED
