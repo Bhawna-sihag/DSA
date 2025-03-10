@@ -12,11 +12,45 @@ public:
             }
         }
         
-        return {};
+        return;
             }
 }
 //approach: we use the nested loop to check every pair of number in array for a pair if sumequal to required number the indices of that number RETURNED
 //TC : O(n^2)
 //SC : O(1)
+
+
+
+//OUESTION 2
+
+
+class solution {
+public:
+    int findmaxscore(std::vector<int>& nums) {
+        int size = nums.size();
+        int maxresult = INT_MIN;  
+
+        for (int start = 0; start < size; ++start) {
+            for (int end = start + 1; end < size; ++end) {
+                std::vector<int> subarray(nums.begin() + start, nums.begin() + end + 1);
+                std::sort(subarray.begin(), subarray.end());
+                if (subarray.size() > 1) {
+                    int score = subarray[0] + subarray[1];
+                    maxresult = std::max(maxresult, score);  
+                }
+            }
+        }
+
+        return maxresult;
+    }
+}
+// APPROACH :checks subarrays using two loops to the start and end points
+ for each subarray,arrange the elements to find the smallest and second smallest values
+  then adds them together to get the number.we keeps track of the highest score found out of all subarrays
+
+//TC : (n^3)
+// SC : O(n)
+
+
 
 
